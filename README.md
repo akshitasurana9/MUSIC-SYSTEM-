@@ -62,20 +62,9 @@ Songs are dynamically stored in memory
 4. Search Song
 5. Play Playlist
 6. Count Songs
-7. Exit
-⚠️ Limitations
-Data is not stored permanently (no file handling)
-Uses conio.h (not portable for all compilers)
-Limited delete options (only beginning/end)
-🔮 Future Enhancements
-✅ Add file handling (save playlist)
-✅ Delete song by name
-✅ Update song details
-✅ Reverse playlist
-✅ GUI or Web-based version
-🛠️ Technologies Used
-Language: C++
-Concepts: Data Structures & OOP
-Compiler: Turbo C++ / GCC
 
+
+Developed by a BCA 1st year student AKSHITA SURANA  as a beginner-level project to explore LINKLIST and improve programming skills in C++.
+
+7. Exit
 
