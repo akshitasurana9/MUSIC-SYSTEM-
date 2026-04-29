@@ -77,6 +77,5 @@ Limited delete options (only beginning/end)
 Language: C++
 Concepts: Data Structures & OOP
 Compiler: Turbo C++ / GCC
-🙌 Conclusion
 
-This project is a great example of applying linked list concepts to a real-world application like a music playlist system. It is ideal for students learning data structures and C++ programming.
+
