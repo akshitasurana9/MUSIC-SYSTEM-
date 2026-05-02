@@ -2,144 +2,186 @@
 #include<conio.h>
 #include<string>
 using namespace std;
-
 class NODE
 {
 public:
-    string SID;
-    string SONG;
-    string ARTIST;
+    string ID;
+    string UNAME;
+    string CAP;
     NODE *NEXT;
-
-    NODE(string id, string s, string a)
+    NODE(string x, string y, string z)
     {
-        SID = id;
-        SONG = s;
-        ARTIST = a;
+        ID = x;
+        UNAME = y;
+        CAP = z;
         NEXT = nullptr;
     }
 };
-
 class LinkList
 {
 public:
-    string SID;
-    int SCNT;
-    string SongName, ArtistName;
-    NODE *START, *END;
+    string IID;
+    int ICNT;
+    string UName, UCAP;
+    NODE *START,*END;
     int countNode;
-
     LinkList(){
-        SCNT = 1001;
+        ICNT = 1001;
         countNode = 0;
         START = nullptr;
         END = nullptr;
     }
-
     void getData()
     {
-        SID = "SONG" + to_string(SCNT);
-        cout<<"\nGenerated Song ID -- "<<SID<<endl;
-
-        cout<<"Enter Song Name -- ";
-        getline(cin, SongName);
-
-        cout<<"Enter Artist Name -- ";
-        getline(cin, ArtistName);
+        IID = "song"+ to_string(ICNT);
+        cout<<"\GENERATE SONG ID -- "<<IID<<endl;
+        cout<<"Enter ARTIST NAME  -- ";
+        getline(cin,UName);
+        cout<<"Enter SONG NAME -- ";
+        getline(cin,UCAP);
     }
-
     char continueCheck()
     {
         char c;
-        cout<<"\n\n1. Continue Same\n";
-        cout<<"2. Previous Menu\n";
-        cout<<"3. Main Menu\n";
+        cout<<"\n\nAre you.. \n";
+        cout<<"1. Continue with Same\n";
+        cout<<"2. Go to Main Previous Menu\n";
+        cout<<"3. Go to Main Menu..\n";
         cout<<"4. Exit\n";
-
         c = getch();
-
-        if (c == '4'){
+        if ( c == '4'){
             thanksLine();
             exit(0);
+        }else{
+            return (c);
         }
-        return c;
     }
-
     int insertNode(int opr)
     {
         system("cls");
-
-        if (opr == 1)
-            cout<<"\nInsert Song At Beginning\n";
-        else if (opr == 2)
-            cout<<"\nInsert Song At End\n";
-
-        getData();
-        NODE *TEMP = new NODE(SID, SongName, ArtistName);
-
-        if (START == nullptr){
-            START = END = TEMP;
+        if ( opr == 1){
+            cout<<"\n\nInsert SONG At Beginning . \n\n";
+            getData();
+            NODE *TEMP = new NODE(IID,UName, UCAP);
+            if ( TEMP == nullptr){
+                cout<<"Insufficient Memory.. \n";
+                return 0;
+            }
+            if ( START == nullptr){
+                END = START = TEMP;
+            }
+            else{
+                TEMP->NEXT = START;
+                START = TEMP;
+            }
+            countNode++;
+            ICNT++;
         }
-        else if (opr == 1){
-            TEMP->NEXT = START;
-            START = TEMP;
+        else if ( opr == 2){
+            cout<<"\n\nInsert  SONG At End . \n\n";
+            getData();
+            NODE *TEMP = new NODE(IID,UName, UCAP);
+
+            if ( TEMP == nullptr){
+                cout<<"Insufficient Memory.. \n";
+                return 0;
+            }
+            if ( START == nullptr){
+                END = START = TEMP;
+            }
+            else{
+                END->NEXT = TEMP;
+                END = TEMP;
+            }
+            countNode++;
+            ICNT++;
         }
-        else if (opr == 2){
-            END->NEXT = TEMP;
-            END = TEMP;
+        else if ( opr == 3){
+            cout<<"\n\nInsert SONG At Given Position . \n\n";
+            cout<<"Total Songs -- "<<countNode<<"\n\n";
+            int pos;
+            getData();
+            cout<<"Enter Position Between 0 to "<<countNode<<" -- ";
+            cin>>pos;
+
+            NODE *TEMP = new NODE(IID,UName, UCAP);
+            if ( TEMP == nullptr){
+                cout<<"Insufficient Memory.. \n";
+                return 0;
+            }
+            int i;
+            NODE *TEMP1 = START;
+            for ( i = 2 ; i < pos ; i++){
+                TEMP1 = TEMP1->NEXT;
+            }
+            if ( START == nullptr){
+                END = START = TEMP;
+            }
+            else{
+                TEMP->NEXT = TEMP1->NEXT;
+                TEMP1->NEXT = TEMP;
+                if ( TEMP1 == END){
+                    END = TEMP1->NEXT;
+                }
+            }
+            countNode++;
+            ICNT++;
         }
-
-        countNode++;
-        SCNT++;
-
-        cout<<"\nSong Added Successfully!\n";
-
         char c = continueCheck();
-        if (c == '1') insertNode(opr);
-        else if (c == '2') insertionOperation();
-        else if (c == '3') MainMenu();
+        if (c == '1')
+            insertNode(opr);
+        else if ( c == '2')
+            insertionOperation();
+        else if ( c == '3')
+            MainMenu();
     }
-
     void showNode()
     {
-        system("cls");
-        cout<<"\n🎵 Playlist:\n\n";
-
+        cout<<"\n\nPLAY LIST -- \n\n";
+        cout<<"* Head -> ";
         NODE *TEMP = START;
-
-        if (START == nullptr){
-            cout<<"Playlist Empty\n";
+        if ( START == nullptr){
+            cout<<"null \n\nPlay List is empty\n";
         }
         else{
-            while (TEMP != nullptr){
-                cout<<"["<<TEMP->SID<<" | "<<TEMP->SONG<<" | "<<TEMP->ARTIST<<"] -> ";
+            while ( TEMP!= nullptr){
+                cout<<"["<<TEMP->ID<<", ";
+                cout<<TEMP->UNAME<<", ";
+                cout<<TEMP->CAP<<"] -> ";
                 TEMP = TEMP->NEXT;
             }
-            cout<<"NULL\n";
+            cout<<"Null";
         }
     }
-
     void countNodes()
     {
-        cout<<"\nTotal Songs: "<<countNode<<"\n";
-    }
-
+        system("cls");
+        cout<<"Count Song Module --\n\n";
+        cout<<"Total Number of Songs -- "<<countNode<<" Songs Available\n\n"
+;    }
     int insertionOperation()
     {
         system("cls");
-
-        cout<<"\nAdd Songs\n\n";
-        cout<<"1. Add at Beginning\n";
-        cout<<"2. Add at End\n";
-        cout<<"3. Main Menu\n";
-        cout<<"4. Exit\n";
-
+        cout<<"\nInsertion Operation..\n\n";
+        cout<<"1. Insert SONG At Beginning\n";
+        cout<<"2. Insert SONG At End\n";
+        cout<<"3. Insert SONG After Data\n";
+        cout<<"4. Go to Main Menu\n";
+        cout<<"5. Exit.\n";
         char c = getch();
-
-        if (c == '1') insertNode(1);
-        else if (c == '2') insertNode(2);
-        else if (c == '3') MainMenu();
-        else if (c == '4'){
+        if ( c == '1'){
+            insertNode(1);
+        }
+        else if ( c == '2'){
+            insertNode(2);
+        }
+        else if ( c == '3'){
+            insertNode(3);
+        }
+        else if ( c == '4'){
+            MainMenu();
+        }
+        else if ( c == '5'){
             thanksLine();
             exit(0);
         }
@@ -148,149 +190,225 @@ public:
     int deleteNode(int opr)
     {
         NODE *TEMP;
-
-        if (START == nullptr){
-            cout<<"\nPlaylist Empty\n";
-            return 0;
-        }
-
-        if (opr == 1){
-            TEMP = START;
-            START = START->NEXT;
-            if (START == nullptr) END = nullptr;
-        }
-        else if (opr == 2){
-            TEMP = START;
-            while (TEMP->NEXT != END){
-                TEMP = TEMP->NEXT;
+        if ( opr == 1){
+            cout<<"\n\nDelete SONG From Beginning . \n\n";
+            if ( START == nullptr)
+            {
+                cout<<"PlayList is Empty.. \n\n";
+                return 0;
             }
-            delete END;
-            END = TEMP;
-            END->NEXT = nullptr;
+            else if ( START->NEXT == nullptr){
+                TEMP = START;
+                END = START = nullptr;
+            }
+            else{
+                TEMP = START;
+                START = START->NEXT;
+            }
+            countNode--;
+            delete(TEMP);
+            cout<<"\nSONG Deleted Successfully\n\n";
         }
+        else if ( opr == 2){
+            cout<<"\n\nDelete SONG From End . \n\n";
+            if ( START == nullptr)
+            {
+                cout<<"PlayList is Empty.. \n\n";
+                return 0;
+            }
+            else if ( START->NEXT == nullptr){
+                TEMP = START;
+                END = START = nullptr;
+            }
+            else{
+                TEMP = START;
+                int c = 1;
+                while ( TEMP->NEXT != END)
+                {
+                    cout<<c++<<endl;
+                    TEMP = TEMP->NEXT;
+                }
+                NODE *T1 = END;
+                TEMP->NEXT = nullptr;
+                END = TEMP;
+                cout<<END->UNAME<<endl;
+                delete(T1);
+            }
+            countNode--;
+            cout<<"\nSONG Deleted Successfully\n\n";
+        }
+        else if ( opr == 3){
+            cout<<"\n\nDelete SONG From Given Position . \n\n";
 
-        countNode--;
-        cout<<"\nSong Deleted Successfully\n";
-
+            if ( START == nullptr)
+            {
+                cout<<"PlayList is Empty.. \n\n";
+                return 0;
+            }
+            int pos;
+            cout<<"Enter Position for Delete (1 - "<<countNode<<") - ";
+            cin>>pos;
+            if ( pos == 1 && START == END)
+            {
+                TEMP = START;
+                START = END = nullptr;
+            }
+            else{
+                TEMP = START;
+                for (int i = 2 ; i < pos ; i++)
+                {
+                    TEMP = TEMP->NEXT;
+                }
+                if (TEMP->NEXT == END){
+                    NODE *T1 = END;
+                    TEMP->NEXT = nullptr;
+                    END = TEMP;
+                }
+                else{
+                    NODE *T1 = TEMP->NEXT;
+                    TEMP->NEXT = T1->NEXT;
+                    delete(T1);
+                }
+            }
+            countNode--;
+            cout<<"\nSONG Deleted Successfully\n\n";
+        }
         char c = continueCheck();
-        if (c == '1') deleteNode(opr);
-        else if (c == '2') deleteOperation();
-        else if (c == '3') MainMenu();
+        if (c == '1')
+            deleteNode(opr);
+        else if ( c == '2')
+            deleteOperation();
+        else if ( c == '3')
+            MainMenu();
+            return 0;
     }
-
     int deleteOperation()
     {
         system("cls");
-
-        cout<<"\nDelete Songs\n\n";
-        cout<<"1. Delete From Beginning\n";
-        cout<<"2. Delete From End\n";
-        cout<<"3. Main Menu\n";
-        cout<<"4. Exit\n";
-
+        cout<<"\nDeletion Operation..\n\n";
+        cout<<"1. Delete SONG From Beginning\n";
+        cout<<"2. Delete SONG From End\n";
+        cout<<"3. Delete SONG From Given Position\n";
+        cout<<"4. Go to Main Menu\n";
+        cout<<"5. Exit.\n";
         char c = getch();
-
-        if (c == '1') deleteNode(1);
-        else if (c == '2') deleteNode(2);
-        else if (c == '3') MainMenu();
-        else if (c == '4'){
+        if ( c == '1'){
+            deleteNode(1);
+        }
+        else if ( c == '2'){
+            deleteNode(2);
+        }
+        else if ( c == '3'){
+            deleteNode(3);
+        }
+        else if ( c == '4'){
+            MainMenu();
+        }
+        else if ( c == '5'){
             thanksLine();
             exit(0);
         }
+
     }
+    /*search module start*/
 
-    int searchSong()
+    int searchTweetInNode()
     {
-        system("cls");
-
-        cout<<"\nSearch Song\n\n";
-
-        if (START == nullptr){
-            cout<<"Playlist Empty\n";
+        cout<<"\n\nSearch SONG in playList -- \n\n";
+        cout<<"* Head -> ";
+        NODE *TEMP = START;
+        if ( START == nullptr){
+            cout<<"null \n\nPlaylist is empty\n";
             return 0;
         }
-
-        string name;
-        cout<<"Enter Song Name: ";
-        getline(cin, name);
-
-        NODE *TEMP = START;
-        int found = 0;
-
-        while (TEMP != nullptr){
-            if (TEMP->SONG == name){
-                cout<<"\nFound: "<<TEMP->SID<<" | "<<TEMP->SONG<<" | "<<TEMP->ARTIST<<"\n";
-                found++;
+        else{
+            cout<<"\n\nEnter ARTIST Name To Find SONG -- ";
+            string uname;
+            int counter = 0;
+            getline(cin,uname);
+            while ( TEMP!= nullptr){
+                if (TEMP->UNAME == uname)
+                {
+                    cout<<"\n["<<TEMP->ID<<", ";
+                    cout<<TEMP->UNAME<<", ";
+                    cout<<TEMP->CAP<<"]\n";
+                    counter++;
+                }
+                TEMP = TEMP->NEXT;
             }
-            TEMP = TEMP->NEXT;
+            if ( counter == 0){
+                cout<<"\nNo SONG Found..\n\n";
+            }
         }
+        char c;
+        cout<<"\n\nAre you .. \n";
+        cout<<"1. Continue with Same\n";
+        cout<<"2. Go to Main Menu..\n";
+        cout<<"3. Exit\n";
+        c = getch();
+        if (c == '1')
+            searchTweetInNode();
+        else if ( c == '2')
+            MainMenu();
+        else if ( c == '3'){
+            thanksLine();
+            exit(0);
 
-        if (found == 0)
-            cout<<"\nSong Not Found\n";
-
-        char c = continueCheck();
-        if (c == '1') searchSong();
-        else if (c == '3') MainMenu();
+        }
+        return 0;
     }
 
-    void playSongs()
-    {
-        system("cls");
-
-        NODE *TEMP = START;
-
-        if (START == nullptr){
-            cout<<"Playlist Empty\n";
-            return;
-        }
-
-        cout<<"\n🎧 Playing Playlist...\n\n";
-
-        while (TEMP != nullptr){
-            cout<<"Now Playing: "<<TEMP->SONG<<" - "<<TEMP->ARTIST<<"\n";
-            getch();
-            TEMP = TEMP->NEXT;
-        }
-    }
-
+    /*Search Module End*/
     int MainMenu()
     {
         system("cls");
-
-        cout<<"====== 🎵 Playlist Manager ======\n\n";
-        cout<<"1. Add Songs\n";
-        cout<<"2. Show Playlist\n";
-        cout<<"3. Delete Songs\n";
-        cout<<"4. Search Song\n";
-        cout<<"5. Play Playlist\n";
-        cout<<"6. Count Songs\n";
-        cout<<"7. Exit\n";
-
+        cout<<"========== LinkList Operation ==========\n\n";
+        cout<<"1. Insertion Operation\n";
+        cout<<"2. Traversal Operation\n";
+        cout<<"3. Delete Operation\n";
+        cout<<"4. Search Operation\n";
+        cout<<"5. Count SONG\n";
+        cout<<"6. Exit\n";
+        cout<<"Choose One of them -- ";
         char c = getch();
-        cin.ignore();
-
-        if (c == '1') insertionOperation();
-        else if (c == '2'){ showNode(); getch(); }
-        else if (c == '3') deleteOperation();
-        else if (c == '4') searchSong();
-        else if (c == '5') playSongs();
-        else if (c == '6'){ countNodes(); getch(); }
-        else if (c == '7'){
+        if ( c == '1'){
+            insertionOperation();
+        }
+        else if ( c == '2'){
+            showNode();
+        }
+        else if ( c == '3'){
+            deleteOperation();
+        }
+        else if ( c == '4'){
+            searchTweetInNode();
+        }
+        else if ( c == '5'){
+            countNodes();
+        }
+        else if ( c == '6'){
             thanksLine();
             exit(0);
         }
-
-        MainMenu();
+        cout<<"\n\nDo you want to continue .. press 1 else any key..";
+        c = getch();
+        if ( c == '1'){
+            MainMenu();
+        }
     }
-
     void thanksLine()
     {
-        cout<<"\n\n🎵 Thanks for Using Playlist Manager 🎵\n";
+        cout<<"\n\nThanks for Using My APP\n\n";
     }
 };
-
 int main()
 {
     LinkList l;
     l.MainMenu();
+    cout<<"\n\nThanks for Using My APP\n\n";
 }
+
+
+
+
+
