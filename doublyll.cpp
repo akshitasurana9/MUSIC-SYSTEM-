@@ -387,7 +387,7 @@ public:
     int MainMenu()
     {
         system("cls");
-        cout<<"========== LinkList Operation ==========\n\n";
+        cout<<"========== PLAYLIST MENU ==========\n\n";
         cout<<"1. Insertion Operation\n";
         cout<<"2. Traversal Operation\n";
         cout<<"3. Delete Operation\n";
@@ -431,12 +431,12 @@ public:
     }
 };
 
-int main()
+/*int main()
 {
     DLinkList l;
     l.MainMenu();
     cout<<"\n\nThanks for Using My APP\n\n";
-}
+}*/
 
 
 
