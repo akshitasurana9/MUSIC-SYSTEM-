@@ -5,40 +5,40 @@ using namespace std;
 class NODE
 {
 public:
-    string ID;
-    string UNAME;
-    string CAP;
+    string SID;
+    string ANAME;
+    string SD;
     NODE *NEXT;
     NODE(string x, string y, string z)
     {
-        ID = x;
-        UNAME = y;
-        CAP = z;
+        SID = x;
+        ANAME = y;
+        SD = z;
         NEXT = nullptr;
     }
 };
 class LinkList
 {
 public:
-    string IID;
-    int ICNT;
-    string UName, UCAP;
+    string SID;
+    int SCNT;
+    string AName, SCAP;
     NODE *START,*END;
     int countNode;
     LinkList(){
-        ICNT = 1001;
+        SCNT = 1001;
         countNode = 0;
         START = nullptr;
         END = nullptr;
     }
     void getData()
     {
-        IID = "song"+ to_string(ICNT);
-        cout<<"\GENERATE SONG ID -- "<<IID<<endl;
+        SID = "SONG"+ to_string(SCNT);
+        cout<<"\GENERATE SONG ID -- "<<SID<<endl;
         cout<<"Enter ARTIST NAME  -- ";
-        getline(cin,UName);
-        cout<<"Enter SONG NAME -- ";
-        getline(cin,UCAP);
+        getline(cin,AName);
+        cout<<"Enter SONG Name -- ";
+        getline(cin,SCAP);
     }
     char continueCheck()
     {
@@ -62,7 +62,7 @@ public:
         if ( opr == 1){
             cout<<"\n\nInsert SONG At Beginning . \n\n";
             getData();
-            NODE *TEMP = new NODE(IID,UName, UCAP);
+            NODE *TEMP = new NODE(SID,AName, SCAP);
             if ( TEMP == nullptr){
                 cout<<"Insufficient Memory.. \n";
                 return 0;
@@ -75,12 +75,12 @@ public:
                 START = TEMP;
             }
             countNode++;
-            ICNT++;
+            SCNT++;
         }
         else if ( opr == 2){
-            cout<<"\n\nInsert  SONG At End . \n\n";
+            cout<<"\n\nInsert SONG At End . \n\n";
             getData();
-            NODE *TEMP = new NODE(IID,UName, UCAP);
+            NODE *TEMP = new NODE(SID,AName, SCAP);
 
             if ( TEMP == nullptr){
                 cout<<"Insufficient Memory.. \n";
@@ -94,7 +94,7 @@ public:
                 END = TEMP;
             }
             countNode++;
-            ICNT++;
+            SCNT++;
         }
         else if ( opr == 3){
             cout<<"\n\nInsert SONG At Given Position . \n\n";
@@ -104,7 +104,7 @@ public:
             cout<<"Enter Position Between 0 to "<<countNode<<" -- ";
             cin>>pos;
 
-            NODE *TEMP = new NODE(IID,UName, UCAP);
+            NODE *TEMP = new NODE(SID,AName, SCAP);
             if ( TEMP == nullptr){
                 cout<<"Insufficient Memory.. \n";
                 return 0;
@@ -125,7 +125,7 @@ public:
                 }
             }
             countNode++;
-            ICNT++;
+            SCNT++;
         }
         char c = continueCheck();
         if (c == '1')
@@ -137,17 +137,17 @@ public:
     }
     void showNode()
     {
-        cout<<"\n\nPLAY LIST -- \n\n";
+        cout<<"\n\nSONG Detail -- \n\n";
         cout<<"* Head -> ";
         NODE *TEMP = START;
         if ( START == nullptr){
-            cout<<"null \n\nPlay List is empty\n";
+            cout<<"null \n\nSONG Detail is empty\n";
         }
         else{
             while ( TEMP!= nullptr){
-                cout<<"["<<TEMP->ID<<", ";
-                cout<<TEMP->UNAME<<", ";
-                cout<<TEMP->CAP<<"] -> ";
+                cout<<"["<<TEMP->SID<<", ";
+                cout<<TEMP->ANAME<<", ";
+                cout<<TEMP->SD<<"] -> ";
                 TEMP = TEMP->NEXT;
             }
             cout<<"Null";
@@ -156,8 +156,8 @@ public:
     void countNodes()
     {
         system("cls");
-        cout<<"Count Song Module --\n\n";
-        cout<<"Total Number of Songs -- "<<countNode<<" Songs Available\n\n"
+        cout<<"Count SONG Module --\n\n";
+        cout<<"Total Number of SONG -- "<<countNode<<" SONG Available\n\n"
 ;    }
     int insertionOperation()
     {
@@ -231,7 +231,7 @@ public:
                 NODE *T1 = END;
                 TEMP->NEXT = nullptr;
                 END = TEMP;
-                cout<<END->UNAME<<endl;
+                cout<<END->ANAME<<endl;
                 delete(T1);
             }
             countNode--;
@@ -314,24 +314,24 @@ public:
 
     int searchTweetInNode()
     {
-        cout<<"\n\nSearch SONG in playList -- \n\n";
+        cout<<"\n\nSearch SONG in  PlayList -- \n\n";
         cout<<"* Head -> ";
         NODE *TEMP = START;
         if ( START == nullptr){
-            cout<<"null \n\nPlaylist is empty\n";
+            cout<<"null \n\ Playlist is empty\n";
             return 0;
         }
         else{
-            cout<<"\n\nEnter ARTIST Name To Find SONG -- ";
-            string uname;
+            cout<<"\n\nEnter ARTIST Name To Find DETAIL -- ";
+            string Aname;
             int counter = 0;
-            getline(cin,uname);
+            getline(cin,Aname);
             while ( TEMP!= nullptr){
-                if (TEMP->UNAME == uname)
+                if (TEMP->ANAME == Aname)
                 {
-                    cout<<"\n["<<TEMP->ID<<", ";
-                    cout<<TEMP->UNAME<<", ";
-                    cout<<TEMP->CAP<<"]\n";
+                    cout<<"\n["<<TEMP->SID<<", ";
+                    cout<<TEMP->ANAME<<", ";
+                    cout<<TEMP->SD<<"]\n";
                     counter++;
                 }
                 TEMP = TEMP->NEXT;
@@ -362,11 +362,11 @@ public:
     int MainMenu()
     {
         system("cls");
-        cout<<"========== LinkList Operation ==========\n\n";
-        cout<<"1. Insertion Operation\n";
-        cout<<"2. Traversal Operation\n";
-        cout<<"3. Delete Operation\n";
-        cout<<"4. Search Operation\n";
+        cout<<"========== PLAYLIST MENU ==========\n\n";
+        cout<<"1. Insertion Of SONG \n";
+        cout<<"2. Traversal SONG\n";
+        cout<<"3. Delete SONG \n";
+        cout<<"4. Search SONG\n";
         cout<<"5. Count SONG\n";
         cout<<"6. Exit\n";
         cout<<"Choose One of them -- ";
@@ -401,12 +401,13 @@ public:
         cout<<"\n\nThanks for Using My APP\n\n";
     }
 };
-int main()
+/*int main()
 {
     LinkList l;
     l.MainMenu();
     cout<<"\n\nThanks for Using My APP\n\n";
-}
+}*/
+
 
 
 
